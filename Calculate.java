@@ -6,15 +6,15 @@ import java.util.ArrayList;
 /*  
     ----TODO----
     Create Division Method, might not want to because that will mean having to deal with doubles which I am currently using ints
+    Result output detect imaginary number sign, currently outputs something like +-3i
 */
 
 public class Calculate extends JFrame
 {
 
-    private JTextArea list;
-    private JButton submit;
-    private JPanel south;
-
+    private JButton numberEntry, viewHistory;
+    private JPanel south, west;
+    
     public Calculate()
     {
         setTitle("Calculate");
@@ -24,21 +24,20 @@ public class Calculate extends JFrame
         setResizable(false);
         setLocationRelativeTo(null);
 
-        //Text Area
-        list = new JTextArea(1,1);
-        list.setLineWrap(true);
-
         //Panel
         south = new JPanel(new FlowLayout());         
+        west  = new JPanel(new FlowLayout());
 
         //Buttons
-        submit = new JButton("Enter Numbers");
-        submit.addActionListener(new ButtonPress());
+        numberEntry = new JButton("Enter Numbers");
+        numberEntry.addActionListener(new ButtonPress());
+        viewHistory = new JButton("View Operation History");
+        viewHistory.addActionListener(new ButtonPress());
 
         //Staging Components
         add(south, BorderLayout.SOUTH);
-        add(list);
-        south.add(submit);
+        add(west, BorderLayout.NORTH);
+        south.add(numberEntry);
     }
 
     private class ButtonPress implements ActionListener
@@ -46,15 +45,21 @@ public class Calculate extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            numberInput();
+            if(e.getActionCommand().equals("Enter Numbers"))
+                numberInput();
+            else
+                JOptionPane.showMessageDialog(null, "Nope");
         }
     }
 
     private static void numberInput()
     {
+        //Method Object instantiation
         ComplexNumber firstComplex = new ComplexNumber(); 
         ComplexNumber secondComplex = new ComplexNumber();
         ComplexNumber result = new ComplexNumber();
+
+        //Method variables
         boolean repeat;
         String inputReal, inputImaginary, flag, sign;
         
@@ -73,7 +78,7 @@ public class Calculate extends JFrame
         }
 
 
-        //Second Number Imaginary Component Assignment
+        //First Number Imaginary Component Assignment
         repeat = true;
         while(repeat)
         {
@@ -91,6 +96,8 @@ public class Calculate extends JFrame
             }
         
         }
+
+
         //Operation
         do
         {
@@ -141,8 +148,11 @@ public class Calculate extends JFrame
         else if(sign.equals("*"))
             result = complexMultiplication(firstComplex, secondComplex);
         
-        flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
-            
+        //If statement here just keeps the imaginary sign, prevents the program from saying +-
+        if(String.valueOf(result.getImaginary()).charAt(0) == '-')
+            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
+        else
+            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
 
         while(flag.equalsIgnoreCase("y"))
         {
@@ -155,6 +165,7 @@ public class Calculate extends JFrame
             {
                 sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number");
             }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
+
 
             //Second Number Real Assignment
             repeat = true;
@@ -189,7 +200,7 @@ public class Calculate extends JFrame
                 }
             }      
             
-
+            //Determines which computational method to call based on operation chosen by user
             if(sign.equals("+"))
                 result = complexAddition(firstComplex, secondComplex);
             else if(sign.equals("-"))
@@ -197,7 +208,11 @@ public class Calculate extends JFrame
             else if(sign.equals("*"))
                 result = complexMultiplication(firstComplex, secondComplex);
 
-            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
+            //If statement here just keeps the imaginary sign, prevents the program from saying +-
+            if(String.valueOf(result.getImaginary()).charAt(0) == '-')
+                flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
+            else
+                flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
         }
 
     }
@@ -225,5 +240,7 @@ public class Calculate extends JFrame
         output.setImaginary((cNum1.getReal() * cNum2.getImaginary()) + (cNum2.getReal() * cNum1.getImaginary()));
         return output;
     }
+
+    
 
 }
