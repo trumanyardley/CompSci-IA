@@ -46,9 +46,4 @@ public class ComplexNumber
             return "(" + this.getReal() + "+" + this.getImaginary() + "i)";
     }
 
-    public static void main(String[] args) {
-        ComplexNumber c = new ComplexNumber(4,4);
-        System.out.println(c);
-    }
-
 }
