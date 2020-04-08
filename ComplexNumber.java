@@ -1,3 +1,4 @@
+
 public class ComplexNumber
 {
 
@@ -34,6 +35,20 @@ public class ComplexNumber
     public int getImaginary()
     {
         return imaginary;
+    }
+
+    @Override
+    public String toString()
+    {
+        if(Integer.toString(this.getImaginary()).contains("-"))
+            return "(" + this.getReal() + this.getImaginary() + "i)";
+        else
+            return "(" + this.getReal() + "+" + this.getImaginary() + "i)";
+    }
+
+    public static void main(String[] args) {
+        ComplexNumber c = new ComplexNumber(4,4);
+        System.out.println(c);
     }
 
 }

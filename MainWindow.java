@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,9 +10,9 @@ public class MainWindow extends JFrame
     private static Graph graphWindow = new Graph();
 
     private static final int HEIGHT = 400, WIDTH = 400;
-    private JPanel south;
-    private JButton calculate, graph;
-    private JLabel heading;
+    private final JPanel south;
+    private final JButton calculate, graph;
+    private final JLabel heading;
 
     public MainWindow()
     {
@@ -26,7 +27,7 @@ public class MainWindow extends JFrame
         //Look and feel based on platform
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
 
@@ -57,9 +58,9 @@ public class MainWindow extends JFrame
     private class OpenNextWindow implements ActionListener
     {
         @Override
-        public void actionPerformed(ActionEvent e)
+        public void actionPerformed(final ActionEvent e)
         {
-            String action = e.getActionCommand();
+            final String action = e.getActionCommand();
             if(action.equals("calculate"))
                 calculateWindow.setVisible(true);
             else
