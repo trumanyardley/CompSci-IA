@@ -6,13 +6,14 @@ import java.util.ArrayList;
 
 /*  
     ----TODO----
-    Create Division Method, might not want to because that will mean having to deal with doubles which I am currently using ints
+    Create Division Method, might not want to because that will mean having to deal with ints which I am currently using ints
+    Make is so user can exit out without having to complete entire data entry cycle
 */
 
 public class Calculate extends JFrame
 {
     private JLabel historyLabel;
-    private JButton numberEntry, viewHistory;
+    private JButton numberEntry;
     private JPanel north, south, east, west;
     private static JTextArea historyArea;
 
@@ -43,8 +44,6 @@ public class Calculate extends JFrame
         //Buttons
         numberEntry = new JButton("Enter Numbers");
         numberEntry.addActionListener(new ButtonPress());
-        viewHistory = new JButton("View Operation History");
-        viewHistory.addActionListener(new ButtonPress());
 
         //Staging Components
         add(north, BorderLayout.NORTH);
@@ -63,8 +62,6 @@ public class Calculate extends JFrame
         {
             if(e.getActionCommand().equals("Enter Numbers"))
                 numberInput();
-            else
-                JOptionPane.showMessageDialog(null, "Nope");
         }
     }
 
@@ -169,11 +166,11 @@ public class Calculate extends JFrame
 
         //Calling method based on inputted operation
         if(sign.equals("+"))
-            result = complexAddition(firstComplex, secondComplex);
+            result = ComplexNumber.complexAddition(firstComplex, secondComplex);
         else if(sign.equals("-"))
-            result = complexSubtraction(firstComplex, secondComplex);
+            result = ComplexNumber.complexSubtraction(firstComplex, secondComplex);
         else if(sign.equals("*"))
-            result = complexMultiplication(firstComplex, secondComplex);
+            result = ComplexNumber.complexMultiplication(firstComplex, secondComplex);
         
         //If statement here just keeps the imaginary sign, prevents the program from saying +-
         if(String.valueOf(result.getImaginary()).charAt(0) == '-')
@@ -235,11 +232,11 @@ public class Calculate extends JFrame
 
             //Determines which computational method to call based on operation chosen by user
             if(sign.equals("+"))
-                result = complexAddition(firstComplex, secondComplex);
+                result = ComplexNumber.complexAddition(firstComplex, secondComplex);
             else if(sign.equals("-"))
-                result = complexSubtraction(firstComplex, secondComplex);
+                result = ComplexNumber.complexSubtraction(firstComplex, secondComplex);
             else if(sign.equals("*"))
-                result = complexMultiplication(firstComplex, secondComplex);
+                result = ComplexNumber.complexMultiplication(firstComplex, secondComplex);
 
             //If statement here just keeps the imaginary sign, prevents the program from saying +-
             if(String.valueOf(result.getImaginary()).charAt(0) == '-')
@@ -263,30 +260,5 @@ public class Calculate extends JFrame
 
         historyArea.setText(history);
     }
-
-    private static ComplexNumber complexAddition(ComplexNumber cNum1, ComplexNumber cNum2)
-    {
-        ComplexNumber output = new ComplexNumber();
-        output.setReal(cNum1.getReal() + cNum2.getReal());
-        output.setImaginary(cNum1.getImaginary() + cNum2.getImaginary());
-        return output;
-    }
-
-    private static ComplexNumber complexSubtraction(ComplexNumber cNum1, ComplexNumber cNum2)
-    {
-        ComplexNumber output = new ComplexNumber();
-        output.setReal(cNum1.getReal() - cNum2.getReal());
-        output.setImaginary(cNum1.getImaginary() - cNum2.getImaginary());
-        return output;
-    }
-
-    private static ComplexNumber complexMultiplication(ComplexNumber cNum1, ComplexNumber cNum2)
-    {
-        ComplexNumber output = new ComplexNumber();
-        output.setReal((cNum1.getReal() * cNum2.getReal()) + (cNum1.getImaginary() * cNum2.getImaginary() * -1));
-        output.setImaginary((cNum1.getReal() * cNum2.getImaginary()) + (cNum2.getReal() * cNum1.getImaginary()));
-        return output;
-    }
-
 
 }
