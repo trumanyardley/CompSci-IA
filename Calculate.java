@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-/*  
+/*
     ----TODO----
     Create Division Method, might not want to because that will mean having to deal with ints which I am currently using ints
     Make is so user can exit out without having to complete entire data entry cycle
@@ -36,8 +36,8 @@ public class Calculate extends JFrame
         historyLabel = new JLabel("Previously Entered: ");
 
         //Panel
-        north = new JPanel(new FlowLayout());         
-        south = new JPanel(new FlowLayout());         
+        north = new JPanel(new FlowLayout());
+        south = new JPanel(new FlowLayout());
         east  = new JPanel(new FlowLayout());
         west  = new JPanel(new FlowLayout());
 
@@ -68,7 +68,7 @@ public class Calculate extends JFrame
     private static void numberInput()
     {
         //Method Objects
-        ComplexNumber firstComplex = new ComplexNumber(); 
+        ComplexNumber firstComplex = new ComplexNumber();
         ComplexNumber secondComplex = new ComplexNumber();
         ComplexNumber result = new ComplexNumber();
         ArrayList<ComplexNumber> complexHistory = new ArrayList<>();
@@ -87,7 +87,7 @@ public class Calculate extends JFrame
                 inputReal = JOptionPane.showInputDialog(null, "Enter real component below: ");
                 firstComplex.setReal(Integer.parseInt(inputReal));
                 repeat = false;
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 repeat = true;
             }
         }
@@ -106,10 +106,9 @@ public class Calculate extends JFrame
                     repeat = false;
                 }while(inputImaginary.contains("i"));
                 firstComplex.setImaginary(Integer.parseInt(inputImaginary));
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 repeat = true;
             }
-        
         }
 
         //Keeping track of entered complex number to generate history list
@@ -122,7 +121,7 @@ public class Calculate extends JFrame
         {
             sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number");
         }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
-        
+
         //Keeping track of entered sign to generate history list
         signHistory.add(sign);
 
@@ -157,7 +156,7 @@ public class Calculate extends JFrame
             } catch (Exception e) {
                 repeat = true;
             }
-        
+
         }
 
         //Keeping track of entered complex number to generate history list
@@ -171,7 +170,7 @@ public class Calculate extends JFrame
             result = ComplexNumber.complexSubtraction(firstComplex, secondComplex);
         else if(sign.equals("*"))
             result = ComplexNumber.complexMultiplication(firstComplex, secondComplex);
-        
+
         //If statement here just keeps the imaginary sign, prevents the program from saying +-
         if(String.valueOf(result.getImaginary()).charAt(0) == '-')
             flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
@@ -190,7 +189,7 @@ public class Calculate extends JFrame
             {
                 sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number");
             }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
-            
+
             //Adding sign to history
             signHistory.add(sign);
 
@@ -226,7 +225,7 @@ public class Calculate extends JFrame
                     repeat = true;
                 }
             }
-            
+
             //Adding to complexNumber history
             complexHistory.add(new ComplexNumber(secondComplex.getReal(), secondComplex.getImaginary()));
 
