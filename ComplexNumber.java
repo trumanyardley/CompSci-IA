@@ -1,8 +1,8 @@
 
-public class ComplexNumber
+//Extends Real Component because a complex number is a real + imaginary
+public class ComplexNumber extends RealComponent
 {
 
-    private int real;
     private int imaginary;
 
     public ComplexNumber()
@@ -17,19 +17,9 @@ public class ComplexNumber
         setImaginary(imaginary);
     }
 
-    public void setReal(int real)
-    {
-        this.real = real;
-    }
-
     public void setImaginary(int imaginary)
     {
         this.imaginary = imaginary;
-    }
-
-    public int getReal()
-    {
-        return real;
     }
 
     public int getImaginary()
