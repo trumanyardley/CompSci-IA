@@ -1,4 +1,3 @@
-
 //Extends Real Component because a complex number is a real + imaginary
 public class ComplexNumber extends RealComponent
 {
