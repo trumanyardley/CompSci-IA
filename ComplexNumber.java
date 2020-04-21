@@ -1,4 +1,7 @@
 //Extends Real Component because a complex number is a real + imaginary
+
+//TODO revise equals method to work if comparing fraction complexnumber and whole complex number
+
 public class ComplexNumber extends RealComponent
 {
 
@@ -16,10 +19,12 @@ public class ComplexNumber extends RealComponent
         setImaginary(imaginary);
     }
 
+
     public void setImaginary(int imaginary)
     {
         this.imaginary = imaginary;
     }
+
 
     public int getImaginary()
     {
@@ -73,17 +78,20 @@ public class ComplexNumber extends RealComponent
         return output;
     }
     
-    //Division Method if I ever find a good way to incorporate it
-    // private static ComplexNumber complexDivision(ComplexNumber cNum1, ComplexNumber cNum2)
-    // {
-    //     //An annonymous object is be instantiated in second argument because in complex division you multiply by the inverse denominator
-    //     //Not assigning to complexNumber output because that would only assign the adress which would result in numerator and demoninator being the same value
-    //     ComplexNumber numerator = new ComplexNumber(complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1)).getReal() 
-    //                                               , complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1)).getImaginary());
-    //     double denominator = (cNum2.getReal() * cNum2.getReal()) + (cNum2.getImaginary() * cNum2.getImaginary() * -1);
+    public static ComplexNumber complexDivision(ComplexNumber cNum1, ComplexNumber cNum2)
+    {
+        //Not assigning to complexMultiplication output directly because that would only assign the memory adress
+        // ComplexNumber numerator = new ComplexNumber(complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1)).getReal() 
+        //                                           , complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1)).getImaginary());
+        ComplexNumber numerator = complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1));
+        
+        double denominator = Math.pow(cNum2.getReal(), 2) + Math.pow(cNum2.getImaginary(), 2);
 
-    //     ComplexNumber output = new ComplexNumber(numerator.getReal() / denominator, numerator.getImaginary() / denominator);
-    //     return output;
-    // }
+        System.out.println(numerator.getReal() / denominator);
+        System.out.println(numerator.getImaginary() / denominator);
+
+        ComplexNumber output = new ComplexNumber( (int) Math.round(numerator.getReal() / denominator), (int) Math.round(numerator.getImaginary() / denominator));
+        return output;
+    }
 
 }

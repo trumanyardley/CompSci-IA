@@ -18,6 +18,7 @@ public class RealComponent
         this.real = real;
     }
 
+
     public int getReal()
     {
         return real;

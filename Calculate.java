@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 /*
     ----TODO----
-    Create Division Method, might not want to because that will mean having to deal with ints which I am currently using ints
-    Make is so user can exit out without having to complete entire data entry cycle
 */
 
 public class Calculate extends JFrame
@@ -190,6 +188,8 @@ public class Calculate extends JFrame
             result = ComplexNumber.complexSubtraction(firstComplex, secondComplex);
         else if(sign.equals("*"))
             result = ComplexNumber.complexMultiplication(firstComplex, secondComplex);
+        else if(sign.equals("/"))
+            result = ComplexNumber.complexDivision(firstComplex, secondComplex);
 
         //If statement here just keeps the imaginary sign, prevents the program from saying +-
         if(String.valueOf(result.getImaginary()).charAt(0) == '-')
