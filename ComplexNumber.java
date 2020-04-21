@@ -80,15 +80,9 @@ public class ComplexNumber extends RealComponent
     
     public static ComplexNumber complexDivision(ComplexNumber cNum1, ComplexNumber cNum2)
     {
-        //Not assigning to complexMultiplication output directly because that would only assign the memory adress
-        // ComplexNumber numerator = new ComplexNumber(complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1)).getReal() 
-        //                                           , complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1)).getImaginary());
         ComplexNumber numerator = complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1));
         
         double denominator = Math.pow(cNum2.getReal(), 2) + Math.pow(cNum2.getImaginary(), 2);
-
-        System.out.println(numerator.getReal() / denominator);
-        System.out.println(numerator.getImaginary() / denominator);
 
         ComplexNumber output = new ComplexNumber( (int) Math.round(numerator.getReal() / denominator), (int) Math.round(numerator.getImaginary() / denominator));
         return output;
