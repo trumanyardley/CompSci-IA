@@ -127,7 +127,7 @@ public class Calculate extends JFrame
         try{
             do
             {
-                sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number");
+                sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number\nNote: Division will round to nearest integer");
             }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
         } catch(NullPointerException e) {
             return;
@@ -163,7 +163,7 @@ public class Calculate extends JFrame
                 do
                 {
                     inputImaginary = JOptionPane.showInputDialog(null, "Enter imaginary component below (Don't include i): ");
-                    //This exits entire method if user clicks cancel button
+                    //This exits entire method if user clicks cancel button or else NullPointerException would occur
                     if(inputImaginary == null)
                         return;
                     if(inputImaginary.contains("i"))
@@ -208,7 +208,7 @@ public class Calculate extends JFrame
                 //Sign between numbers
                 do
                 {
-                    sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number");
+                    sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number\nNote: Division will round to nearest integer");
                 }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
 
                 //Adding sign to history
@@ -222,7 +222,7 @@ public class Calculate extends JFrame
                         inputReal = JOptionPane.showInputDialog(null, "Enter real component below: ");
                         secondComplex.setReal(Integer.parseInt(inputReal));
                         repeat = false;
-                    } catch (Exception e) {
+                    } catch (NumberFormatException e) {
                         repeat = true;
                     }
                 }
@@ -242,7 +242,7 @@ public class Calculate extends JFrame
                             repeat = false;
                         }while(inputImaginary.contains("i"));
                         secondComplex.setImaginary(Integer.parseInt(inputImaginary));
-                    } catch (Exception e) {
+                    } catch (NumberFormatException e) {
                         repeat = true;
                     }
                 }

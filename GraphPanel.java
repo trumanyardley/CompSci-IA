@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics.*;
 
+/*
+---TODO---
+use Graph's static complexNumber arrayList to actually 
+develop grid increments and to plot those points
+*/
+
 public class GraphPanel extends JPanel
 {
 
