@@ -7,7 +7,6 @@ import java.awt.event.*;
 
 /*
 ---TODO---
-flag input exception handling
 Graph button proper functionality
 */
 public class Graph extends JFrame
@@ -15,16 +14,16 @@ public class Graph extends JFrame
 
     private Button addComplexNumbers, viewNumbers, clear, graph;
     private JPanel buttons;
-    private GraphPanel gPanel;
+    private static GraphPanel gPanel;
     private static ArrayList<ComplexNumber> complexNumbers = new ArrayList<>();
 
     public Graph()
     {
         setTitle("Graph");
-        setSize(400, 400);
+        setSize(417, 400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        setResizable(false);
+        setResizable(true);
         setLocationRelativeTo(null);
 
         //Buttons
@@ -35,6 +34,7 @@ public class Graph extends JFrame
         clear = new Button("Clear Numbers");
         clear.addActionListener(new ButtonPress());
         graph = new Button("Graph");
+        graph.addActionListener(new ButtonPress());
 
         //Panels
         gPanel = new GraphPanel();
@@ -62,6 +62,9 @@ public class Graph extends JFrame
                 clearNumbers();
             else if(e.getActionCommand().equals("View Numbers"))
                 displayNumbers();
+            else if(e.getActionCommand().equals("Graph"))
+                drawPoints();
+
         }
     }
 
@@ -105,7 +108,7 @@ public class Graph extends JFrame
             }
 
             //Adds entered complex number to list to plot
-            complexNumbers.add(cNum);
+            complexNumbers.add(new ComplexNumber(cNum.getReal(), cNum.getImaginary()));
 
             flag = JOptionPane.showInputDialog(null, "Type y if you would like to add another complex number");
             
@@ -122,6 +125,7 @@ public class Graph extends JFrame
     {
         complexNumbers.clear();
         JOptionPane.showMessageDialog(null, "List of ComplexNumbers has been cleared", "Alert", JOptionPane.INFORMATION_MESSAGE);
+        drawPoints();
     }
 
     private static void displayNumbers()
@@ -138,6 +142,16 @@ public class Graph extends JFrame
         }
 
         JOptionPane.showMessageDialog(null, "You have " + complexNumbers.size() + " complex numbers listed:\n\t " + numbers);
+    }
+
+    public static ArrayList<ComplexNumber> getComplexNumbers()
+    {
+        return complexNumbers;
+    }
+
+    private static void drawPoints()
+    {
+        gPanel.repaint();
     }
 
 }
