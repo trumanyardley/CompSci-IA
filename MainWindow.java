@@ -35,8 +35,8 @@ public class MainWindow extends JFrame
         south = new JPanel(new FlowLayout());
 
         //Buttons
-        calculate = new JButton("calculate");
-        graph = new JButton("graph");
+        calculate = new JButton("Calculate");
+        graph = new JButton("Graph");
 
         //Action Listener
         calculate.addActionListener(new OpenNextWindow());
@@ -60,10 +60,10 @@ public class MainWindow extends JFrame
         @Override
         public void actionPerformed(final ActionEvent e)
         {
-            final String action = e.getActionCommand();
-            if(action.equals("calculate"))
+            String action = e.getActionCommand();
+            if(action.equals("Calculate"))
                 calculateWindow.setVisible(true);
-            else
+            else if(action.equals("Graph"))
                 graphWindow.setVisible(true);
         }
     }

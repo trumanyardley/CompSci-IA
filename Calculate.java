@@ -27,6 +27,7 @@ public class Calculate extends JFrame
 
         //TextArea
         historyArea = new JTextArea();
+        historyArea.setPreferredSize(new Dimension(200,25));
         historyArea.setLineWrap(true);
         historyArea.setEditable(false);
 
@@ -59,7 +60,8 @@ public class Calculate extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if(e.getActionCommand().equals("Enter Numbers"))
+            String action = e.getActionCommand();
+            if(action.equals("Enter Numbers"))
                 numberInput();
         }
     }
@@ -193,80 +195,83 @@ public class Calculate extends JFrame
 
         //If statement here just keeps the imaginary sign, prevents the program from saying +-
         if(String.valueOf(result.getImaginary()).charAt(0) == '-')
-            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
+            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType 'Y' if you wish to proceed");
         else
-            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
+            flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType 'Y' if you wish to proceed");
+
+        if(flag == null)
+            flag = " ";
 
         //This section executes as long as user wishes to continue
-        try {
-            while(flag.equalsIgnoreCase("y"))
+        while(flag.equalsIgnoreCase("y"))
+        {
+            //Carrying over previous result because this is continuing from there using this as first term
+            firstComplex.setReal(result.getReal());
+            firstComplex.setImaginary(result.getImaginary());
+
+            //Sign between numbers
+            do
             {
-                //Carrying over previous result because this is continuing from there using this as first term
-                firstComplex.setReal(result.getReal());
-                firstComplex.setImaginary(result.getImaginary());
+                sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number\nNote: Division will round to nearest integer");
+            }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
 
-                //Sign between numbers
-                do
-                {
-                    sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number\nNote: Division will round to nearest integer");
-                }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
+            //Adding sign to history
+            signHistory.add(sign);
 
-                //Adding sign to history
-                signHistory.add(sign);
-
-                //Second Number Real Assignment
-                repeat = true;
-                while(repeat)
-                {
-                    try {
-                        inputReal = JOptionPane.showInputDialog(null, "Enter real component below: ");
-                        secondComplex.setReal(Integer.parseInt(inputReal));
-                        repeat = false;
-                    } catch (NumberFormatException e) {
-                        repeat = true;
-                    }
+            //Second Number Real Assignment
+            repeat = true;
+            while(repeat)
+            {
+                try {
+                    inputReal = JOptionPane.showInputDialog(null, "Enter real component below: ");
+                    secondComplex.setReal(Integer.parseInt(inputReal));
+                    repeat = false;
+                } catch (NumberFormatException e) {
+                    repeat = true;
                 }
-
-
-                //Second Number Imaginary Component Assignment
-                repeat = true;
-                while(repeat)
-                {
-                    try {
-                        //Do-while detects if i is being used to generate specific message
-                        do
-                        {
-                            inputImaginary = JOptionPane.showInputDialog(null, "Enter imaginary component below (Don't include i): ");
-                            if(inputImaginary.contains("i"))
-                                JOptionPane.showMessageDialog(null, "Don't include i please :(", "Big no no", JOptionPane.ERROR_MESSAGE);
-                            repeat = false;
-                        }while(inputImaginary.contains("i"));
-                        secondComplex.setImaginary(Integer.parseInt(inputImaginary));
-                    } catch (NumberFormatException e) {
-                        repeat = true;
-                    }
-                }
-
-                //Adding to complexNumber history
-                complexHistory.add(new ComplexNumber(secondComplex.getReal(), secondComplex.getImaginary()));
-
-                //Determines which computational method to call based on operation chosen by user
-                if(sign.equals("+"))
-                    result = ComplexNumber.complexAddition(firstComplex, secondComplex);
-                else if(sign.equals("-"))
-                    result = ComplexNumber.complexSubtraction(firstComplex, secondComplex);
-                else if(sign.equals("*"))
-                    result = ComplexNumber.complexMultiplication(firstComplex, secondComplex);
-
-                //If statement here just keeps the imaginary sign, prevents the program from saying +-
-                if(String.valueOf(result.getImaginary()).charAt(0) == '-')
-                    flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
-                else
-                    flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType y if you would like to continue or anything else if not");
             }
-        } catch(NullPointerException e){
-            return;
+
+
+            //Second Number Imaginary Component Assignment
+            repeat = true;
+            while(repeat)
+            {
+                try {
+                    //Do-while detects if i is being used to generate specific message
+                    do
+                    {
+                        inputImaginary = JOptionPane.showInputDialog(null, "Enter imaginary component below (Don't include i): ");
+                        if(inputImaginary.contains("i"))
+                            JOptionPane.showMessageDialog(null, "Don't include i please :(", "Big no no", JOptionPane.ERROR_MESSAGE);
+                        repeat = false;
+                    }while(inputImaginary.contains("i"));
+                    secondComplex.setImaginary(Integer.parseInt(inputImaginary));
+                } catch (NumberFormatException e) {
+                    repeat = true;
+                }
+            }
+
+            //Adding to complexNumber history
+            complexHistory.add(new ComplexNumber(secondComplex.getReal(), secondComplex.getImaginary()));
+
+            //Determines which computational method to call based on operation chosen by user
+            if(sign.equals("+"))
+                result = ComplexNumber.complexAddition(firstComplex, secondComplex);
+            else if(sign.equals("-"))
+                result = ComplexNumber.complexSubtraction(firstComplex, secondComplex);
+            else if(sign.equals("*"))
+                result = ComplexNumber.complexMultiplication(firstComplex, secondComplex);
+
+            //If statement here just keeps the imaginary sign, prevents the program from saying +-
+            if(String.valueOf(result.getImaginary()).charAt(0) == '-')
+                flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType 'Y' if you wish to proceed");
+            else
+                flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + "+" + result.getImaginary() + "i" + "\nType 'Y' if you wish to proceed");
+        
+            if(flag == null)
+                flag = " ";
         }
+        
         //Adds the final result to history so user can know what the answer to their entered numbers after exiting
         signHistory.add("=");
         complexHistory.add(result);

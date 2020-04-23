@@ -6,23 +6,23 @@ import java.awt.event.*;
 
 /*
 ---TODO---
-Graph button proper functionality
+
 */
 public class Graph extends JFrame
 {
 
-    private Button addComplexNumbers, viewNumbers, clear, graph;
+    private Button addComplexNumbers, viewNumbers, clear;
     private JPanel buttons;
     private static GraphPanel gPanel;
-    private static ArrayList<ComplexNumber> complexNumbers = new ArrayList<>();
+    //private static ArrayList<ComplexNumber> complexNumbers = new ArrayList<>();
 
     public Graph()
     {
         setTitle("Graph");
-        setSize(417, 400);
+        setSize(417,400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        setResizable(true);
+        setResizable(false);
         setLocationRelativeTo(null);
 
         //Buttons
@@ -32,8 +32,6 @@ public class Graph extends JFrame
         viewNumbers.addActionListener(new ButtonPress());
         clear = new Button("Clear Numbers");
         clear.addActionListener(new ButtonPress());
-        graph = new Button("Graph");
-        graph.addActionListener(new ButtonPress());
 
         //Panels
         gPanel = new GraphPanel();
@@ -43,7 +41,6 @@ public class Graph extends JFrame
         buttons.add(addComplexNumbers);
         buttons.add(viewNumbers);
         buttons.add(clear);
-        buttons.add(graph);
 
         //Scene Setup
         add(gPanel);
@@ -55,23 +52,26 @@ public class Graph extends JFrame
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            if(e.getActionCommand().equals("Add Numbers"))
+            String action = e.getActionCommand();
+            if(action.equals("Add Numbers"))
                 numberInput();
-            else if(e.getActionCommand().equals("Clear Numbers"))
-                clearNumbers();
-            else if(e.getActionCommand().equals("View Numbers"))
+            else if(action.equals("Clear Numbers"))
+            {
+                gPanel.clearGraph();
+                gPanel.repaint();
+                JOptionPane.showMessageDialog(null, "List of ComplexNumbers has been cleared", "Alert", JOptionPane.INFORMATION_MESSAGE);               
+            }
+            else if(action.equals("View Numbers"))
                 displayNumbers();
-            else if(e.getActionCommand().equals("Graph"))
-                drawPoints();
-
         }
     }
 
+    //Prompts user to enter numbers
     private static void numberInput()
     {
         ComplexNumber cNum = new ComplexNumber();
-        boolean repeat;
-        String inputReal, inputImaginary, flag = "y";
+        boolean repeat, flag = true;
+        String inputReal, inputImaginary;
 
         do{
             //Real component Assignment
@@ -79,10 +79,13 @@ public class Graph extends JFrame
             while(repeat)
             {
                 try {
-                    inputReal = JOptionPane.showInputDialog(null, "Enter real component below: ");
+                    inputReal = JOptionPane.showInputDialog(null, "Enter real component below: \n(Hit cancel to exit)", "Real Component", JOptionPane.QUESTION_MESSAGE);
                     //This exits entire method if user clicks cancel button
                     if(inputReal == null)
+                    {
+                        flag = false;
                         return;
+                    }
                     cNum.setReal(Integer.parseInt(inputReal));
                     repeat = false;
                 } catch (NumberFormatException e) {
@@ -95,10 +98,13 @@ public class Graph extends JFrame
             while(repeat)
             {
                 try {
-                    inputImaginary = JOptionPane.showInputDialog(null, "Enter imaginary component below (Don't include i): ");
+                    inputImaginary = JOptionPane.showInputDialog(null, "Enter imaginary component below (Don't include i): \n(Hit cancel to exit)", "Imaginary Component", JOptionPane.QUESTION_MESSAGE);
                     //This exits entire method if user clicks cancel button
                     if(inputImaginary == null)
+                    {
+                        flag = false;
                         return;
+                    }
                     cNum.setImaginary(Integer.parseInt(inputImaginary));
                     repeat = false;
                 } catch (NumberFormatException e) {
@@ -106,51 +112,29 @@ public class Graph extends JFrame
                 }
             }
 
-            //Adds entered complex number to list to plot
-            complexNumbers.add(new ComplexNumber(cNum.getReal(), cNum.getImaginary()));
+            //Adds entered complex number to list and plots it
+            gPanel.addComplexNumber(new ComplexNumber(cNum.getReal(), cNum.getImaginary()));
+            gPanel.repaint();
 
-            flag = JOptionPane.showInputDialog(null, "Type y if you would like to add another complex number");
-            
-            //If statement assumes that if user clicks cancel they are finished...
-            //and prevents program from panicking
-            if(flag == null)
-                flag = " ";
-
-        }while(flag.equalsIgnoreCase("y"));
+        }while(flag);
 
     }
 
-    private static void clearNumbers()
-    {
-        complexNumbers.clear();
-        JOptionPane.showMessageDialog(null, "List of ComplexNumbers has been cleared", "Alert", JOptionPane.INFORMATION_MESSAGE);
-        drawPoints();
-    }
-
+    //Used to show user what numbers they have entered
     private static void displayNumbers()
     {
         String numbers = "";
         //Not using a advanced for loop here because i'm using...
         //i to tell me position and when to not add comma
-        for(int i = 0; i < complexNumbers.size(); i++)
+        for(int i = 0; i < gPanel.getComplexNumbers().size(); i++)
         {
-            if(i != complexNumbers.size() - 1)
-                numbers += complexNumbers.get(i) + ", ";
+            if(i != gPanel.getComplexNumbers().size() - 1)
+                numbers += gPanel.getComplexNumbers().get(i) + ", ";
             else
-                numbers += complexNumbers.get(i);
+                numbers += gPanel.getComplexNumbers().get(i);
         }
 
-        JOptionPane.showMessageDialog(null, "You have " + complexNumbers.size() + " complex numbers listed:\n\t " + numbers);
-    }
-
-    public static ArrayList<ComplexNumber> getComplexNumbers()
-    {
-        return complexNumbers;
-    }
-
-    private static void drawPoints()
-    {
-        gPanel.repaint();
+        JOptionPane.showMessageDialog(null, "You have " + gPanel.getComplexNumbers().size() + " complex numbers plotted:\n\t " + numbers);
     }
 
 }
