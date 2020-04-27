@@ -1,3 +1,8 @@
+/*
+----TODO----
+Add javadoc
+*/
+
 public class RealComponent 
 {
 

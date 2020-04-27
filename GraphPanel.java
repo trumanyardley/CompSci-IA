@@ -69,7 +69,7 @@ public class GraphPanel extends JPanel
                 if(Math.abs(c.getImaginary()) > maxImaginary)
                     maxImaginary = Math.abs(c.getImaginary());
             }
-            //Truncate and not Math.round because rounding up could cause graph to be too small and points not fitting
+
             double realIncrement = 0.0;
             if(maxReal != 0)
                 realIncrement = (WIDTH/2.0-10)/maxReal;
@@ -98,14 +98,7 @@ public class GraphPanel extends JPanel
                 else
                     yPos = (HEIGHT) / 2 +  (int) (imaginaryIncrement * c.getImaginary() * -1) - 3;
 
-                //Without this a point of 0,0 wouldnt plot correctly at the origin because...
-                //of the way equation I use above
-                if(c.getReal() == 0)
-                    xPos = WIDTH/2 - 3;
-                if(c.getImaginary() == 0)
-                    yPos = HEIGHT/2 - 3;
-
-                    g.fillOval(xPos, yPos, 6, 6);
+                g.fillOval(xPos, yPos, 6, 6);
             }
 
 

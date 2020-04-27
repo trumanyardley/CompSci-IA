@@ -1,6 +1,9 @@
 //Extends Real Component because a complex number is a real + imaginary
 
-//TODO revise equals method to work if comparing fraction complexnumber and whole complex number
+/*
+----TODO----
+ Add JavaDoc
+*/
 
 public class ComplexNumber extends RealComponent
 {
