@@ -56,8 +56,6 @@ public class GraphPanel extends JPanel
         //Only bothers if list exists
         if(complexNumbers.size() > 0)
         {
-            // int maxReal = complexNumbers.get(0).getReal();
-            // int maxImaginary = complexNumbers.get(0).getImaginary();
             int maxReal = 1;
             int maxImaginary = 1;
 

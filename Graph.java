@@ -14,7 +14,6 @@ public class Graph extends JFrame
     private Button addComplexNumbers, viewNumbers, clear;
     private JPanel buttons;
     private static GraphPanel gPanel;
-    //private static ArrayList<ComplexNumber> complexNumbers = new ArrayList<>();
 
     public Graph()
     {

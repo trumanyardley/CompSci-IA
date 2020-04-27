@@ -210,10 +210,14 @@ public class Calculate extends JFrame
             firstComplex.setImaginary(result.getImaginary());
 
             //Sign between numbers
-            do
-            {
-                sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number\nNote: Division will round to nearest integer");
-            }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
+            try{
+                do
+                {
+                    sign = JOptionPane.showInputDialog(null, "Enter (+-*/) for operation between next complex number\nNote: Division will round to nearest integer");
+                }while(!sign.equals("+") && !sign.equals("-") && !sign.equals("*") && !sign.equals("/"));
+            } catch(NullPointerException e) {
+                return;
+            }
 
             //Adding sign to history
             signHistory.add(sign);
