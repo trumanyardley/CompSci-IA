@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 /*
 ---TODO---
-Add coordinates above each plotted point
 */
 
 public class GraphPanel extends JPanel
@@ -82,7 +81,7 @@ public class GraphPanel extends JPanel
             g.drawString(String.valueOf(maxReal), 5, HEIGHT/2+30);
             g.drawString("-" + String.valueOf(maxReal), WIDTH - 20 - (10 * (String.valueOf(maxReal).length() - 1)), HEIGHT/2+30);
             g.drawString(String.valueOf(maxImaginary), WIDTH/2+15, 15);
-            g.drawString("-" + String.valueOf(maxImaginary), WIDTH/2+15, HEIGHT);
+            g.drawString("-" + String.valueOf(maxImaginary), WIDTH/2+15, HEIGHT-5);
 
             for(ComplexNumber c : complexNumbers)
             {   
@@ -99,8 +98,9 @@ public class GraphPanel extends JPanel
                     yPos = (HEIGHT) / 2 +  (int) (imaginaryIncrement * c.getImaginary() * -1) - 3;
 
                 g.fillOval(xPos, yPos, 6, 6);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 15));
+                g.drawString(c.toString(), xPos-10, yPos-5);
             }
-
 
         }
     }

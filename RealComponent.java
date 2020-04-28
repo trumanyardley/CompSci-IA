@@ -1,6 +1,5 @@
 /*
 ----TODO----
-Add javadoc
 */
 
 public class RealComponent 
@@ -17,13 +16,18 @@ public class RealComponent
     {
         setReal(real);
     }
-
+    
+    /** 
+     * @param real
+     */
     public void setReal(int real)
     {
         this.real = real;
     }
-
-
+    
+    /** 
+     * @return int
+     */
     public int getReal()
     {
         return real;

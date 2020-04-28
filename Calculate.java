@@ -183,7 +183,7 @@ public class Calculate extends JFrame
         complexHistory.add(new ComplexNumber(secondComplex.getReal(), secondComplex.getImaginary()));
 
 
-        //Calling method based on inputted operation
+        //Calling method based on operation
         if(sign.equals("+"))
             result = ComplexNumber.complexAddition(firstComplex, secondComplex);
         else if(sign.equals("-"))
@@ -193,7 +193,7 @@ public class Calculate extends JFrame
         else if(sign.equals("/"))
             result = ComplexNumber.complexDivision(firstComplex, secondComplex);
 
-        //If statement here just keeps the imaginary sign, prevents the program from saying +-
+        //If statement here prevents the program from saying +-
         if(String.valueOf(result.getImaginary()).charAt(0) == '-')
             flag = JOptionPane.showInputDialog(null, "Your Result is: " + result.getReal() + result.getImaginary() + "i" + "\nType 'Y' if you wish to proceed");
         else

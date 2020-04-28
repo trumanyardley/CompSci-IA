@@ -1,8 +1,5 @@
-//Extends Real Component because a complex number is a real + imaginary
-
 /*
 ----TODO----
- Add JavaDoc
 */
 
 public class ComplexNumber extends RealComponent
@@ -22,18 +19,25 @@ public class ComplexNumber extends RealComponent
         setImaginary(imaginary);
     }
 
-
+    /** 
+     * @param imaginary
+     */
     public void setImaginary(int imaginary)
     {
         this.imaginary = imaginary;
     }
 
-
+    /** 
+     * @return int
+     */
     public int getImaginary()
     {
         return imaginary;
     }
 
+    /** 
+     * @return String
+     */
     @Override
     public String toString()
     {
@@ -43,6 +47,10 @@ public class ComplexNumber extends RealComponent
             return "(" + this.getReal() + "+" + this.getImaginary() + "i)";
     }
 
+    /** 
+     * @param o
+     * @return boolean
+     */
     @Override
     public boolean equals(Object o)
     {
@@ -57,6 +65,11 @@ public class ComplexNumber extends RealComponent
         return this.getReal() == c.getImaginary() && this.getImaginary() == c.getImaginary();
     }
 
+    /** 
+     * @param cNum1
+     * @param cNum2
+     * @return ComplexNumber
+     */
     public static ComplexNumber complexAddition(ComplexNumber cNum1, ComplexNumber cNum2)
     {
         ComplexNumber output = new ComplexNumber();
@@ -65,6 +78,11 @@ public class ComplexNumber extends RealComponent
         return output;
     }
 
+    /** 
+     * @param cNum1
+     * @param cNum2
+     * @return ComplexNumber
+     */
     public static ComplexNumber complexSubtraction(ComplexNumber cNum1, ComplexNumber cNum2)
     {
         ComplexNumber output = new ComplexNumber();
@@ -72,7 +90,12 @@ public class ComplexNumber extends RealComponent
         output.setImaginary(cNum1.getImaginary() - cNum2.getImaginary());
         return output;
     }
-
+    
+    /** 
+     * @param cNum1
+     * @param cNum2
+     * @return ComplexNumber
+     */
     public static ComplexNumber complexMultiplication(ComplexNumber cNum1, ComplexNumber cNum2)
     {
         ComplexNumber output = new ComplexNumber();
@@ -81,6 +104,11 @@ public class ComplexNumber extends RealComponent
         return output;
     }
     
+    /** 
+     * @param cNum1
+     * @param cNum2
+     * @return ComplexNumber
+     */
     public static ComplexNumber complexDivision(ComplexNumber cNum1, ComplexNumber cNum2)
     {
         ComplexNumber numerator = complexMultiplication(cNum1, new ComplexNumber(cNum2.getReal(), cNum2.getImaginary() * -1));
