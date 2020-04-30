@@ -1,7 +1,3 @@
-/*
-----TODO----
-*/
-
 public class ComplexNumber extends RealComponent
 {
 

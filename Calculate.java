@@ -4,10 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-/*
-    ----TODO----
-*/
-
 public class Calculate extends JFrame
 {
     private JLabel historyLabel;
@@ -66,6 +62,7 @@ public class Calculate extends JFrame
         }
     }
 
+    //Prompts user to enter numbers
     private static void numberInput()
     {
         //Method Objects

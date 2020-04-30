@@ -1,12 +1,7 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.awt.event.*;
-
-/*
----TODO---
-*/
 
 public class Graph extends JFrame
 {
@@ -119,7 +114,7 @@ public class Graph extends JFrame
 
     }
 
-    //Used to show user what numbers they have entered
+    //Shows user numbers they have entered
     private static void displayNumbers()
     {
         String numbers = "";

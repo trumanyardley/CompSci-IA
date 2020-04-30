@@ -3,10 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-/*
-----TODO----
-*/
-
 public class MainWindow extends JFrame
 {
 
@@ -28,7 +24,7 @@ public class MainWindow extends JFrame
         setResizable(false);
         setLocationRelativeTo(null);
 
-        //Look and feel based on platform
+        //Look and feel based on operating system
         try { 
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (final Exception e) {
@@ -41,12 +37,10 @@ public class MainWindow extends JFrame
         //Buttons
         calculate = new JButton("Calculate");
         graph = new JButton("Graph");
-
-        //Action Listener
         calculate.addActionListener(new OpenNextWindow());
         graph.addActionListener(new OpenNextWindow());
 
-        //Labels                                HTML to wrap text
+        //Labels
         image = new JLabel(new ImageIcon("complexnumber.png"));
         heading = new JLabel("<html><h1>Complex Number Calculator</h1><p><center>by Truman Yardley</center><p></html>");
         heading.setHorizontalAlignment(JLabel.CENTER);

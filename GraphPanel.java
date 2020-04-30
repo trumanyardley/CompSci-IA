@@ -2,10 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-/*
----TODO---
-*/
-
 public class GraphPanel extends JPanel
 {
 
@@ -34,25 +30,23 @@ public class GraphPanel extends JPanel
         complexNumbers.clear();
     }
 
-    //Draws x and y axis
     public void paint(Graphics g)
     {
         super.paint(g);
-        //X and Y axis
+        //X and Y axis lines
         g.drawLine(0, HEIGHT/2, WIDTH, HEIGHT/2);
         g.drawLine(WIDTH/2, 0, WIDTH/2, HEIGHT);
         //Axis Labels
         g.setFont(new Font("TimesRoman", Font.ITALIC, 20));
         g.drawString("i", WIDTH/2-15, 15);
         g.drawString("r", 5, HEIGHT/2-10);
-        //Little lines that indicate max values
+        //Small lines that indicate max values
         g.drawLine(10, HEIGHT/2-10, 10, HEIGHT/2+10);
         g.drawLine(WIDTH-10, HEIGHT/2-10, WIDTH-10, HEIGHT/2+10);
         g.drawLine(WIDTH/2-10, 10, WIDTH/2+10, 10);
         g.drawLine(WIDTH/2-10, HEIGHT-10, WIDTH/2+10, HEIGHT-10);
 
-
-        //Only bothers if list exists
+        //Draws points
         if(complexNumbers.size() > 0)
         {
             int maxReal = 1;
@@ -61,8 +55,7 @@ public class GraphPanel extends JPanel
             for(ComplexNumber c : complexNumbers)
             {
                 //Finding max real and imaginary numbers to use for incrementing when plotting
-                //Math.abs is important here so negative numbers can also become max even though...
-                //they're negative
+                //Math.abs to account for largest negative number
                 if(Math.abs(c.getReal()) > maxReal)
                     maxReal = Math.abs(c.getReal());
                 if(Math.abs(c.getImaginary()) > maxImaginary)
@@ -76,7 +69,7 @@ public class GraphPanel extends JPanel
             if(maxImaginary != 0)
                 imaginaryIncrement =  (HEIGHT/2.0-10)/maxImaginary;
 
-            //Draw Max values for each point of axis, LEFT, RIGHT, TOP, Bottom drawn respectively
+            //Draw Max number for each axis, LEFT, RIGHT, TOP, Bottom drawn respectively
             g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
             g.drawString(String.valueOf(maxReal), 5, HEIGHT/2+30);
             g.drawString("-" + String.valueOf(maxReal), WIDTH - 20 - (10 * (String.valueOf(maxReal).length() - 1)), HEIGHT/2+30);
